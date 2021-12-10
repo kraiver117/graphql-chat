@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { addMessage, getMessages, onMessageAdded } from './graphql/queries';
+import { useQuery } from '@apollo/client';
+import { addMessage, getMessages, messagesQuery, onMessageAdded } from './graphql/queries';
 import MessageInput from './MessageInput';
 import MessageList from './MessageList';
 
 const Chat = ({user}) => {
-  const [messages, setMessages] = useState([]);
+  const {loading, error, data} = useQuery(messagesQuery);
+  const messages = data ? data.messages : [];
 
   const handleSend = (text) => {
-    const message = {id: text, from: 'you', text};
-    setMessages(messages.concat(message));
+    // TODO
   }
 
   return (
